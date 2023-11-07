@@ -6,9 +6,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* Aligns items to the start of the container */
     align-items: center;
-    /* Aligns items to the start of the cross axis */
     gap: 10px;
     /* Sets space between flex items */
 }
