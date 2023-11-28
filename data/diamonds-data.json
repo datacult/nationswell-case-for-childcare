@@ -1,0 +1,180 @@
+{
+    "Hispanic": {
+        "Highest Percent": [
+            {
+                "Wisconsin": 26.6
+            },
+            {
+                "Michigan": 24.7
+            },
+            {
+                "New York": 22.0
+            },
+            {
+                "Pennsylvania": 21.7
+            },
+            {
+                "Washington": 20.5
+            }
+        ],
+        "Lowest Percent": [
+            {
+                "South Carolina": 10.0
+            },
+            {
+                "California": 10.6
+            },
+            {
+                "Florida / New Mexico": 10.8
+            },
+            {
+                "Missouri / Texas": 11.2
+            }
+        ]
+    },
+    "Low Income": {
+        "Highest Percent": [
+            {
+                "DC": 44.0
+            },
+            {
+                "New York": 42.4
+            },
+            {
+                "Hawaii": 40.1
+            },
+            {
+                "Wisconsin": 39.5
+            },
+            {
+                "Pennsylvania": 37.9
+            }
+        ],
+        "Lowest Percent": [
+            {
+                "Mississippi": 15.9
+            },
+            {
+                "South Carolina": 18.7
+            },
+            {
+                "Louisiana": 19.2
+            },
+            {
+                "Tennessee": 20.9
+            },
+            {
+                "California": 21.4
+            }
+        ]
+    },
+    "White": {
+        "Highest Percent": [
+            {
+                "New York": 13.9
+            },
+            {
+                "Wisconsin": 13.8
+            },
+            {
+                "Hawaii": 13.2
+            },
+            {
+                "Montana": 12.7
+            },
+            {
+                "Vermont": 12.3
+            }
+        ],
+        "Lowest Percent": [
+            {
+                "Louisiana": 4.7
+            },
+            {
+                "Mississippi": 4.8
+            },
+            {
+                "California": 5.6
+            },
+            {
+                "South Carolina": 5.7
+            },
+            {
+                "New Jersey": 6.3
+            }
+        ]
+    },
+    "Asian/Pacific Islander": {
+        "Highest Percent": [
+            {
+                "New York": 16.1
+            },
+            {
+                "Wisconsin": 15.6
+            },
+            {
+                "Rhode Island": 14.2
+            },
+            {
+                "Colorado": 13.7
+            },
+            {
+                "Alaska": 13.1
+            }
+        ],
+        "Lowest Percent": [
+            {
+                "Tennessee": 5.0
+            },
+            {
+                "California": 5.4
+            },
+            {
+                "Texas": 5.9
+            },
+            {
+                "Florida": 6.0
+            },
+            {
+                "Georgia": 6.1
+            }
+        ]
+    },
+    "Black": {
+        "Highest Percent": [
+            {
+                "Wisconsin": 28.5
+            },
+            {
+                "Alaska": 24.6
+            },
+            {
+                "New York": 20.5
+            },
+            {
+                "Nevada": 19.5
+            },
+            {
+                "New Jersey": 19.4
+            }
+        ],
+        "Lowest Percent": [
+            {
+                "Tennessee": 6.5
+            },
+            {
+                "Louisiana": 7.1
+            },
+            {
+                "Mississippi": 7.5
+            },
+            {
+                "South Carolina": 7.7
+            },
+            {
+                "California": 7.8
+            }
+        ]
+    },
+    "Benchmark" : 7
+}

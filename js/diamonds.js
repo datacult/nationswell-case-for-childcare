@@ -1,23 +1,28 @@
-const grey = '#A9A9A9';
+// © 2023 Data Culture
+// Released under the ISC license.
+// https://studio.datacult.com/ 
 
-const data = [
-  { label: 'Low income parents', value: 40, state: 'DC' },
-  { label: 'Black parents', value: 14, state: 'NY' },
-  { label: 'Hispanic parents', value: 27, state: 'Wisconsin' },
-  { label: 'Asian/Pacific Islander parents', value: 16, state: 'NY' },
-  { label: 'White parents', value: 14, state: 'NY' }
-];
+'use strict'
 
-const diamondsDiv = d3.select('#diamonds');
+let diamonds = ((data, selector = '#diamonds') => {
 
-// Set up the SVG dimensions
-const svgWidth = 250; 
-const svgHeight = 250;
+  const transitionTime = 500;
+  const transitionDelay = 100;
 
-// Define the size of the diamond
-const diamondSize = 125; 
+  const diamondsDiv = d3.select(selector);
 
-data.forEach((d, i) => {
+  // Set up the SVG dimensions
+  const svgWidth = 800;
+  const svgHeight = 800;
+
+  // Initial diamond size
+  let diamondSize = 0;
+
+  function calculateHypotenuse(a, b) {
+    return Math.sqrt(a * a + b * b);
+  }
+
+  let hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
 
   const container = diamondsDiv.append('div')
     .classed('diamond-svg-container', true);
@@ -31,52 +36,183 @@ data.forEach((d, i) => {
   const centerX = svgWidth / 2;
   const centerY = svgHeight / 2;
 
-  // Create a group element to contain the diamonds and the associated text
-  const g = svg.append('g')
-    .attr('transform', `translate(${centerX}, ${centerY})`);
+  //position mapping to transate 4 squares which are rotated 45 degress into diamons to make a bigger diamond
 
-  // Calculate the size of the inner diamond based on the value
-  const innerSize = diamondSize * (d.value / 100);
+  const positionBuffer = 2;
+
+  let positionMapping = [
+    { x: centerX, y: centerY - positionBuffer },
+    { x: centerX + (hypotenuse / 2) + positionBuffer, y: centerY + (hypotenuse / 2) },
+    { x: centerX, y: centerY + hypotenuse + positionBuffer },
+    { x: centerX - (hypotenuse / 2) - positionBuffer, y: centerY + (hypotenuse / 2) }
+  ]
+
+  let labelMapping = [
+    { x: 0, y: -diamondSize - 20, anchor: 'middle' },
+    { x: diamondSize + 50, y: 0, anchor: 'middle' },
+    { x: 0, y: diamondSize, anchor: 'middle' },
+    { x: -diamondSize - 50, y: 0, anchor: 'middle' }
+  ]
+
+  function rounded_rect(x, y, w, h, r, tl, tr, bl, br) {
+    var retval;
+    retval = "M" + (x + r) + "," + y;
+    retval += "h" + (w - 2 * r);
+    if (tr) { retval += "a" + r + "," + r + " 0 0 1 " + r + "," + r; }
+    else { retval += "h" + r; retval += "v" + r; }
+    retval += "v" + (h - 2 * r);
+    if (br) { retval += "a" + r + "," + r + " 0 0 1 " + -r + "," + r; }
+    else { retval += "v" + r; retval += "h" + -r; }
+    retval += "h" + (2 * r - w);
+    if (bl) { retval += "a" + r + "," + r + " 0 0 1 " + -r + "," + -r; }
+    else { retval += "h" + -r; retval += "v" + -r; }
+    retval += "v" + (2 * r - h);
+    if (tl) { retval += "a" + r + "," + r + " 0 0 1 " + r + "," + -r; }
+    else { retval += "v" + -r; retval += "h" + r; }
+    retval += "z";
+    return retval;
+  }
 
   // Calculate the position of the bottom corner of the outer diamond
-  const bottomCornerX = diamondSize / 2;
-  const bottomCornerY = diamondSize / 2;
-
-  // Append the inner diamond shape (smaller square to represent the percentage)
-  g.append('rect')
-    .attr('x', bottomCornerX - innerSize)
-    .attr('y', bottomCornerY - innerSize)
-    .attr('width', innerSize)
-    .attr('height', innerSize)
-    .attr('transform', 'rotate(45)')
-    .style('fill', grey); // Fill for the inner diamond
+  let bottomCornerX = diamondSize / 2;
+  let bottomCornerY = diamondSize / 2;
 
   // Append the outer diamond shape (which is a rotated square)
-  g.append('rect')
-    .attr('x', -diamondSize / 2)
-    .attr('y', -diamondSize / 2)
-    .attr('width', diamondSize)
-    .attr('height', diamondSize)
-    .attr('transform', 'rotate(45)')
-    .style('fill', 'none') // No fill for the outer diamond
-    .style('stroke', 'black'); // Stroke for the outer diamond border
 
-  // State and value text
-  g.append('text')
-    .attr('x', 0)
-    .attr('y', 0) // Adjust this value as needed to position the text appropriately
-    .attr('text-anchor', 'middle')
-    .attr('fill', grey)
+  let outer_rect = rounded_rect(-diamondSize / 2, -diamondSize / 2, diamondSize, diamondSize, diamondSize * 0.1, true, false, false, false)
+
+  let groups = svg
+    .selectAll('g')
+    .data(data)
+    .join('g')
+    .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
+
+  let outer = groups
+    .append("path")
+    .attr("d", outer_rect)
+    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
+    .style('fill', '#485925') // No fill for the outer diamond
+    .style('stroke', 'none') // Stroke for the outer diamond border;
+
+  let cost = groups
+    .append('rect')
+    .attr('x', d => bottomCornerX - diamondSize * (d.percent / 100))
+    .attr('y', d => bottomCornerY - diamondSize * (d.percent / 100))
+    .attr('width', d => diamondSize * (d.percent / 100))
+    .attr('height', d => diamondSize * (d.percent / 100))
+    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
+    .style('fill', "#ffffff")
+
+  let benchmark = groups
+    .append('rect')
+    .attr('x', d => bottomCornerX - diamondSize * (d.benchmark / 100))
+    .attr('y', d => bottomCornerY - diamondSize * (d.benchmark / 100))
+    .attr('width', d => diamondSize * (d.benchmark / 100))
+    .attr('height', d => diamondSize * (d.benchmark / 100))
+    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
+    .style('fill', "#FF8A53")
+
+  // State
+  let state_label = groups
+    .append('text')
+    .attr('x', (d, i) => labelMapping[i].x)
+    .attr('y', (d, i) => labelMapping[i].y + 20)
+    .attr('text-anchor', (d, i) => labelMapping[i].anchor)
+    .attr('font-weight', '200')
     .attr('dominant-baseline', 'central')
-    .text(`${d.state} ${d.value}%`);
+    .attr('fill', '#485925')
+    .attr('opacity', 0)
+    .text(d => `${d.percent}%`);
 
   // Label text below the diamond
-  g.append('text')
-    .attr('x', 0)
-    .attr('y', diamondSize / 2 + 40) // This positions the label below the diamond. Adjust the offset as needed.
-    .attr('text-anchor', 'middle')
+  let value_label = groups
+    .append('text')
+    .attr('x', (d, i) => labelMapping[i].x)
+    .attr('y', (d, i) => labelMapping[i].y)
+    .attr('text-anchor', (d, i) => labelMapping[i].anchor)
     .attr('font-weight', 'bold')
-    .attr('dominant-baseline', 'hanging')
-    .text(d.label);
+    .attr('dominant-baseline', 'central')
+    .attr('fill', '#485925')
+    .attr('opacity', 0)
+    .text(d => d.state);
+
+
+
+  function update() {
+
+    diamondSize = 125
+
+    hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
+
+    positionMapping = [
+      { x: centerX, y: centerY - positionBuffer },
+      { x: centerX + (hypotenuse / 2) + positionBuffer, y: centerY + (hypotenuse / 2) },
+      { x: centerX, y: centerY + hypotenuse + positionBuffer },
+      { x: centerX - (hypotenuse / 2) - positionBuffer, y: centerY + (hypotenuse / 2) }
+    ]
+
+    labelMapping = [
+      { x: 0, y: -diamondSize - 20, anchor: 'middle' },
+      { x: diamondSize + 50, y: 0, anchor: 'middle' },
+      { x: 0, y: diamondSize, anchor: 'middle' },
+      { x: -diamondSize - 50, y: 0, anchor: 'middle' }
+    ]
+
+    bottomCornerX = diamondSize / 2;
+    bottomCornerY = diamondSize / 2;
+
+
+    outer_rect = rounded_rect(-diamondSize / 2, -diamondSize / 2, diamondSize, diamondSize, diamondSize * 0.1, true, false, false, false)
+
+    groups
+      .transition()
+      .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
+
+    outer
+      .transition()
+      .delay((d, i) => transitionDelay * i)
+      .duration(transitionTime)
+      .attr("d", outer_rect);
+
+    cost
+      .attr('x', d => bottomCornerX - diamondSize * (d.percent / 100))
+      .attr('y', d => bottomCornerY - diamondSize * (d.percent / 100))
+      .transition()
+      .delay((d, i) => (data.length * transitionDelay) + transitionDelay * i)
+      .duration(transitionTime)
+      .attr('width', d => diamondSize * (d.percent / 100))
+      .attr('height', d => diamondSize * (d.percent / 100));
+
+    benchmark
+      .attr('x', d => bottomCornerX - diamondSize * (d.benchmark / 100))
+      .attr('y', d => bottomCornerY - diamondSize * (d.benchmark / 100))
+      .transition()
+      .delay((d, i) => (data.length * transitionDelay * 2) + transitionDelay * i)
+      .duration(transitionTime)
+      .attr('width', d => diamondSize * (d.benchmark / 100))
+      .attr('height', d => diamondSize * (d.benchmark / 100));
+
+
+    state_label
+      .transition()
+      .delay((d, i) => transitionDelay * i)
+      .duration(transitionTime)
+      .attr('x', (d, i) => labelMapping[i].x)
+      .attr('y', (d, i) => labelMapping[i].y + 20)
+      .attr('opacity', 1);
+
+    value_label
+      .transition()
+      .delay((d, i) => transitionDelay * i)
+      .duration(transitionTime)
+      .attr('x', (d, i) => labelMapping[i].x)
+      .attr('y', (d, i) => labelMapping[i].y)
+      .attr('opacity', 1);
+
+  }
+
+  return {
+    update: update,
+}
 
 });
