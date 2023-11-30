@@ -166,6 +166,8 @@ let diamonds = ((data, selector = '#diamonds') => {
 
     groups
       .transition()
+      .delay((d, i) => transitionDelay * i)
+      .duration(transitionTime)
       .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
 
     outer
