@@ -20,12 +20,15 @@ https://studio.datacult.com/ -->
 
 <body>
     <div id="diamonds"></div>
+    <div id="grid"></div>
+
 </body>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
 <script src="js/diamonds.js"></script>
-
+<script src="js/grid.js"></script>
 </html>
-<script>
+<!-- <script>
     (async () => {
         let data = await d3.json('/data/diamonds-data.json')
 
@@ -35,13 +38,13 @@ https://studio.datacult.com/ -->
             wrangled.push(
                 {
                     "benchmark": data['Benchmark'],
-                    "percent": Object.values(data['Low Income']['Lowest Percent'][i])[0],
-                    "state": Object.keys(data['Low Income']['Lowest Percent'][i])[0],
+                    "percent": Object.values(data['Low Income']['Highest Percent'][i])[0],
+                    "state": Object.keys(data['Low Income']['Highest Percent'][i])[0],
                 }
             )
         }
 
-        let lowIncome = diamonds(wrangled)
+        let lowIncome = diamonds(wrangled, '#diamonds')
 
         setTimeout(() => {
             return lowIncome.update()
@@ -50,4 +53,4 @@ https://studio.datacult.com/ -->
 
     })()
 
-</script>
+</script> -->
