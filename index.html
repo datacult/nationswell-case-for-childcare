@@ -26,31 +26,59 @@ https://studio.datacult.com/ -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
 <script src="js/diamonds.js"></script>
-<script src="js/grid.js"></script>
+<!-- <script src="js/grid.js"></script> -->
+
 </html>
-<!-- <script>
+<script>
     (async () => {
         let data = await d3.json('/data/diamonds-data.json')
 
-        let wrangled = []
+        let wrangled = {}
 
-        for (let i = 0; i < 4; i++) {
-            wrangled.push(
-                {
-                    "benchmark": data['Benchmark'],
-                    "percent": Object.values(data['Low Income']['Highest Percent'][i])[0],
-                    "state": Object.keys(data['Low Income']['Highest Percent'][i])[0],
-                }
-            )
+        for (let key of Object.keys(data)) {
+            wrangled[key] = [[], []]
+            for (let i = 0; i < 4; i++) {
+                wrangled[key][0].push(
+                    {
+                        "benchmark": data[key]['Benchmark'],
+                        "percent": Object.values(data[key]['Highest Percent'][i])[0],
+                        "state": Object.keys(data[key]['Highest Percent'][i])[0],
+                        "share": "Highest",
+                        "demographic": key
+                    },
+                ),
+                    wrangled[key][1].push(
+                        {
+                            "benchmark": data[key]['Benchmark'],
+                            "percent": Object.values(data[key]['Lowest Percent'][i])[0],
+                            "state": Object.keys(data[key]['Lowest Percent'][i])[0],
+                            "share": "Lowest",
+                            "demographic": key
+                        }
+                    )
+            }
         }
 
-        let lowIncome = diamonds(wrangled, '#diamonds')
+        let visuals = []
 
-        setTimeout(() => {
-            return lowIncome.update()
-        }, 1000)
+        let index = 0;
+
+        for (const [key, val] of Object.entries(wrangled)) {
+
+            setTimeout(() => {
+                if (visuals.length == 0) {
+                    visuals = val.map(d => diamonds(d, '#diamonds', data[key].color))
+                } else {
+                    visuals.forEach((d,i) => d.update(val[i], data[key].color))
+                }
+            }, 4000 * index)
+
+            index++;
+
+        }
+
 
 
     })()
 
-</script> -->
+</script>

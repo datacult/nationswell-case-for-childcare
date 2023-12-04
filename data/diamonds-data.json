@@ -30,7 +30,9 @@
             {
                 "Missouri / Texas": 11.2
             }
-        ]
+        ],
+        "color":"#2E1E10",
+        "Benchmark" : 7
     },
     "Low Income": {
         "Highest Percent": [
@@ -66,7 +68,9 @@
             {
                 "California": 21.4
             }
-        ]
+        ],
+        "color":"#485925",
+        "Benchmark" : 7
     },
     "White": {
         "Highest Percent": [
@@ -102,7 +106,9 @@
             {
                 "New Jersey": 6.3
             }
-        ]
+        ],
+        "color":"#5A4A9A",
+        "Benchmark" : 7
     },
     "Asian/Pacific Islander": {
         "Highest Percent": [
@@ -138,7 +144,9 @@
             {
                 "Georgia": 6.1
             }
-        ]
+        ],
+        "color":"#6C3F1F",
+        "Benchmark" : 7
     },
     "Black": {
         "Highest Percent": [
@@ -174,7 +182,8 @@
             {
                 "California": 7.8
             }
-        ]
-    },
-    "Benchmark" : 7
+        ],
+        "color":"#3C55AC",
+        "Benchmark" : 7
+    }
 }

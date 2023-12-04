@@ -4,7 +4,7 @@
 
 'use strict'
 
-let diamonds = ((data, selector = '#diamonds') => {
+let diamonds = ((data, selector = '#diamonds', color) => {
 
   const transitionTime = 500;
   const transitionDelay = 100;
@@ -23,6 +23,7 @@ let diamonds = ((data, selector = '#diamonds') => {
   }
 
   let hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
+
 
   const container = diamondsDiv.append('div')
     .classed('diamond-svg-container', true);
@@ -91,8 +92,8 @@ let diamonds = ((data, selector = '#diamonds') => {
     .append("path")
     .attr("d", outer_rect)
     .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
-    .style('fill', '#485925') // No fill for the outer diamond
-    .style('stroke', 'none') // Stroke for the outer diamond border;
+    .attr('fill', color) // No fill for the outer diamond
+    .attr('stroke', 'none') // Stroke for the outer diamond border;
 
   let cost = groups
     .append('rect')
@@ -101,7 +102,7 @@ let diamonds = ((data, selector = '#diamonds') => {
     .attr('width', d => diamondSize * (d.percent / 100))
     .attr('height', d => diamondSize * (d.percent / 100))
     .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
-    .style('fill', "#ffffff")
+    .attr('fill', "#ffffff")
 
   let benchmark = groups
     .append('rect')
@@ -110,37 +111,42 @@ let diamonds = ((data, selector = '#diamonds') => {
     .attr('width', d => diamondSize * (d.benchmark / 100))
     .attr('height', d => diamondSize * (d.benchmark / 100))
     .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
-    .style('fill', "#FF8A53")
+    .attr('fill', "#FF8A53")
 
   // State
-  let state_label = groups
+  let value_label = groups
     .append('text')
     .attr('x', (d, i) => labelMapping[i].x)
     .attr('y', (d, i) => labelMapping[i].y + 20)
     .attr('text-anchor', (d, i) => labelMapping[i].anchor)
     .attr('font-weight', '200')
     .attr('dominant-baseline', 'central')
-    .attr('fill', '#485925')
+    .attr('fill', color)
     .attr('opacity', 0)
     .text(d => `${d.percent}%`);
 
   // Label text below the diamond
-  let value_label = groups
+  let state_label = groups
     .append('text')
     .attr('x', (d, i) => labelMapping[i].x)
     .attr('y', (d, i) => labelMapping[i].y)
     .attr('text-anchor', (d, i) => labelMapping[i].anchor)
     .attr('font-weight', 'bold')
     .attr('dominant-baseline', 'central')
-    .attr('fill', '#485925')
+    .attr('fill', color)
     .attr('opacity', 0)
     .text(d => d.state);
 
+  function update(data, color) {
 
-
-  function update() {
-
-    diamondSize = 125
+    if (diamondSize == 0) {
+      diamondSize = 125
+    } else {
+      diamondSize = 0
+      setTimeout(() => {
+        return update(data, color)
+      }, transitionTime * 3)
+    }
 
     hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
 
@@ -165,56 +171,67 @@ let diamonds = ((data, selector = '#diamonds') => {
     outer_rect = rounded_rect(-diamondSize / 2, -diamondSize / 2, diamondSize, diamondSize, diamondSize * 0.1, true, false, false, false)
 
     groups
+      .data(data)
       .transition()
       .delay((d, i) => transitionDelay * i)
       .duration(transitionTime)
       .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
 
     outer
+      .data(data)
       .transition()
       .delay((d, i) => transitionDelay * i)
       .duration(transitionTime)
+      .attr('fill', color)
       .attr("d", outer_rect);
 
     cost
+      .data(data)
+      .transition()
       .attr('x', d => bottomCornerX - diamondSize * (d.percent / 100))
       .attr('y', d => bottomCornerY - diamondSize * (d.percent / 100))
-      .transition()
       .delay((d, i) => (data.length * transitionDelay) + transitionDelay * i)
       .duration(transitionTime)
       .attr('width', d => diamondSize * (d.percent / 100))
       .attr('height', d => diamondSize * (d.percent / 100));
 
     benchmark
+      .data(data)
+      .transition()
       .attr('x', d => bottomCornerX - diamondSize * (d.benchmark / 100))
       .attr('y', d => bottomCornerY - diamondSize * (d.benchmark / 100))
-      .transition()
       .delay((d, i) => (data.length * transitionDelay * 2) + transitionDelay * i)
       .duration(transitionTime)
       .attr('width', d => diamondSize * (d.benchmark / 100))
       .attr('height', d => diamondSize * (d.benchmark / 100));
 
 
-    state_label
+    value_label
+      .data(data)
       .transition()
       .delay((d, i) => transitionDelay * i)
       .duration(transitionTime)
       .attr('x', (d, i) => labelMapping[i].x)
       .attr('y', (d, i) => labelMapping[i].y + 20)
-      .attr('opacity', 1);
+      .attr('fill', color)
+      .attr('opacity', diamondSize == 0 ? 0 : 1)
+      .text(d => `${d.percent}%`);
 
-    value_label
+    state_label
+      .data(data)
       .transition()
       .delay((d, i) => transitionDelay * i)
       .duration(transitionTime)
       .attr('x', (d, i) => labelMapping[i].x)
       .attr('y', (d, i) => labelMapping[i].y)
-      .attr('opacity', 1);
+      .attr('fill', color)
+      .attr('opacity', diamondSize == 0 ? 0 : 1)
+      .text(d => d.state);
 
   }
 
   return {
     update: update,
-}
+  }
 
 });
