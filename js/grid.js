@@ -23,7 +23,7 @@ let grid = ((selector = '#grid') => {
 
     let percent = 0.2
 
-    const hexSize = 10; // Size of the hexagons
+    const hexSize = 8; // Size of the hexagons
     const radius = hexSize / 2
 
     const stroke = 0; // Stroke width
