@@ -7,12 +7,12 @@
 let grid = ((selector = '#grid') => {
 
     // Dimensions
-    const width = 1200
-    const height = 800
+    const width = parseInt(d3.select(selector).style("width"))
+    const height = width * 0.5
 
-    const side = width * 0.4;
+    const side = height * 0.6;
 
-    let negativePadding = side * 0.01
+    let negativePadding = side * 0.02
 
     let square = {
         x: ((width - side) / 2),
@@ -131,7 +131,7 @@ let grid = ((selector = '#grid') => {
         circles
             .transition()
             .delay((d, i) => Math.random() * 2000)
-            .duration(1000)
+            .duration(500)
             .attr("fill", d => d.random <= p ? "#FF8A53" : "#FFCFB8") // 20% chance of being pink
     }
 
