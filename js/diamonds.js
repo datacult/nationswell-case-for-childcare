@@ -7,7 +7,7 @@
 let diamonds = ((data, selector = '#diamonds', color) => {
 
   const transitionTime = 500;
-  const transitionDelay = 100;
+  const transitionDelay = transitionTime * 0.3;
 
   const diamondsDiv = d3.select(selector);
 
@@ -24,7 +24,6 @@ let diamonds = ((data, selector = '#diamonds', color) => {
 
   let hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
 
-
   const container = diamondsDiv.append('div')
     .classed('diamond-svg-container', true);
 
@@ -36,17 +35,6 @@ let diamonds = ((data, selector = '#diamonds', color) => {
 
   const centerX = svgWidth / 2;
   const centerY = svgHeight / 2;
-
-  //position mapping to transate 4 squares which are rotated 45 degress into diamons to make a bigger diamond
-
-  const positionBuffer = 2;
-
-  let positionMapping = [
-    { x: centerX, y: centerY - positionBuffer },
-    { x: centerX + (hypotenuse / 2) + positionBuffer, y: centerY + (hypotenuse / 2) },
-    { x: centerX, y: centerY + hypotenuse + positionBuffer },
-    { x: centerX - (hypotenuse / 2) - positionBuffer, y: centerY + (hypotenuse / 2) }
-  ]
 
   let labelMapping = [
     { x: 0, y: -diamondSize - 20, anchor: 'middle' },
@@ -74,156 +62,155 @@ let diamonds = ((data, selector = '#diamonds', color) => {
     return retval;
   }
 
-  // Calculate the position of the bottom corner of the outer diamond
-  let bottomCornerX = diamondSize / 2;
-  let bottomCornerY = diamondSize / 2;
-
   // Append the outer diamond shape (which is a rotated square)
 
-  let outer_rect = rounded_rect(-diamondSize / 2, -diamondSize / 2, diamondSize, diamondSize, diamondSize * 0.1, true, false, false, false)
+  let outer_rect = rounded_rect(0, 0, diamondSize, diamondSize, diamondSize * 0.1, false, false, false, true)
 
   let groups = svg
     .selectAll('g')
     .data(data)
     .join('g')
-    .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
+    .attr('transform-origin', 'top left')
+    .attr('transform', (d, i) => `translate(${(centerX)},${(centerY)}) rotate(${45 + (90 * (i + 2))})`)
 
   let outer = groups
     .append("path")
     .attr("d", outer_rect)
-    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
-    .attr('fill', color) // No fill for the outer diamond
-    .attr('stroke', 'none') // Stroke for the outer diamond border;
+    .attr('fill', color)
 
   let cost = groups
     .append('rect')
-    .attr('x', d => bottomCornerX - diamondSize * (d.percent / 100))
-    .attr('y', d => bottomCornerY - diamondSize * (d.percent / 100))
+    .attr('x', d => 0)
+    .attr('y', d => 0)
     .attr('width', d => diamondSize * (d.percent / 100))
-    .attr('height', d => diamondSize * (d.percent / 100))
-    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
+    .attr('height', d => -(diamondSize * (d.percent / 100)))
     .attr('fill', "#ffffff")
 
   let benchmark = groups
     .append('rect')
-    .attr('x', d => bottomCornerX - diamondSize * (d.benchmark / 100))
-    .attr('y', d => bottomCornerY - diamondSize * (d.benchmark / 100))
+    .attr('x', d => 0)
+    .attr('y', d => 0)
     .attr('width', d => diamondSize * (d.benchmark / 100))
-    .attr('height', d => diamondSize * (d.benchmark / 100))
-    .attr('transform', (d, i) => `rotate(${45 + (90 * i)})`)
+    .attr('height', d => -(diamondSize * (d.benchmark / 100)))
     .attr('fill', "#FF8A53")
 
   // State
-  let value_label = groups
-    .append('text')
-    .attr('x', (d, i) => labelMapping[i].x)
-    .attr('y', (d, i) => labelMapping[i].y + 20)
+  let value_label = svg
+    .selectAll('value-label')
+    .data(data)
+    .join('text')
+    .attr('x', (d, i) => (centerX) + labelMapping[i].x)
+    .attr('y', (d, i) => (centerY) + labelMapping[i].y + 20)
     .attr('text-anchor', (d, i) => labelMapping[i].anchor)
     .attr('font-weight', '200')
     .attr('dominant-baseline', 'central')
     .attr('fill', color)
     .attr('opacity', 0)
-    .text(d => `${d.percent}%`);
+    .text(d => `${d.percent}%`)
+    .classed('value-label', true);
 
   // Label text below the diamond
-  let state_label = groups
-    .append('text')
-    .attr('x', (d, i) => labelMapping[i].x)
-    .attr('y', (d, i) => labelMapping[i].y)
+  let state_label = svg
+    .selectAll('state-label')
+    .data(data)
+    .join('text')
+    .attr('x', (d, i) => (centerX) + labelMapping[i].x)
+    .attr('y', (d, i) => (centerY) + labelMapping[i].y)
     .attr('text-anchor', (d, i) => labelMapping[i].anchor)
     .attr('font-weight', 'bold')
     .attr('dominant-baseline', 'central')
     .attr('fill', color)
     .attr('opacity', 0)
-    .text(d => d.state);
+    .text(d => d.state)
+    .classed('state-label', true);
 
-  function update(data, color) {
+  let xLine = svg
+    .append('line')
+    .attr('x1', (centerX) - 125)
+    .attr('y1', (centerY) - 125)
+    .attr('x2', (centerX) + 125)
+    .attr('y2', (centerY) + 125)
+    .attr('stroke', '#EAEC7D')
+    .attr('stroke-width', 3)
 
-    if (diamondSize == 0) {
-      diamondSize = 125
+  let yLine = svg
+    .append('line')
+    .attr('x1', (centerX) - 125)
+    .attr('y1', (centerY) + 125)
+    .attr('x2', (centerX) + 125)
+    .attr('y2', (centerY) - 125)
+    .attr('stroke', '#EAEC7D')
+    .attr('stroke-width', 3)
+
+
+  function update(data, color, open = true) {
+
+    console.log(data, color, open)
+
+    if (open == true && diamondSize == 125) {
+      diamondSize = 0;
+      console.log()
     } else {
-      diamondSize = 0
-      setTimeout(() => {
-        return update(data, color)
-      }, transitionTime * 3)
+      diamondSize = 125;
     }
 
     hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
 
-    positionMapping = [
-      { x: centerX, y: centerY - positionBuffer },
-      { x: centerX + (hypotenuse / 2) + positionBuffer, y: centerY + (hypotenuse / 2) },
-      { x: centerX, y: centerY + hypotenuse + positionBuffer },
-      { x: centerX - (hypotenuse / 2) - positionBuffer, y: centerY + (hypotenuse / 2) }
-    ]
-
     labelMapping = [
-      { x: 0, y: -diamondSize - 20, anchor: 'middle' },
-      { x: diamondSize + 50, y: 0, anchor: 'middle' },
-      { x: 0, y: diamondSize, anchor: 'middle' },
-      { x: -diamondSize - 50, y: 0, anchor: 'middle' }
+      { x: 0, y: - diamondSize - 120, anchor: 'middle' },
+      { x: diamondSize + 120, y: 0, anchor: 'middle' },
+      { x: 0, y: diamondSize + 100, anchor: 'middle' },
+      { x: -diamondSize - 120, y: 0, anchor: 'middle' }
     ]
 
-    bottomCornerX = diamondSize / 2;
-    bottomCornerY = diamondSize / 2;
+    outer_rect = rounded_rect(0, 0, diamondSize, diamondSize, diamondSize * 0.1, false, false, false, true)
 
-
-    outer_rect = rounded_rect(-diamondSize / 2, -diamondSize / 2, diamondSize, diamondSize, diamondSize * 0.1, true, false, false, false)
-
-    groups
-      .data(data)
-      .transition()
-      .delay((d, i) => transitionDelay * i)
+    const t = d3.transition()
       .duration(transitionTime)
-      .attr('transform', (d, i) => `translate(${positionMapping[i].x}, ${positionMapping[i].y})`);
 
     outer
       .data(data)
-      .transition()
-      .delay((d, i) => transitionDelay * i)
-      .duration(transitionTime)
+      .transition(t)
+      .delay((d, i) => diamondSize == 0 ? (data.length * transitionDelay * 2) + transitionDelay * i : transitionDelay * i)
       .attr('fill', color)
-      .attr("d", outer_rect);
+      .attr("d", outer_rect)
+      .on("end", (d, i) => {
+        if (i == data.length - 1 && diamondSize == 0) {
+          return update(data, color)
+        }
+      });
 
     cost
       .data(data)
-      .transition()
-      .attr('x', d => bottomCornerX - diamondSize * (d.percent / 100))
-      .attr('y', d => bottomCornerY - diamondSize * (d.percent / 100))
+      .transition(t)
       .delay((d, i) => (data.length * transitionDelay) + transitionDelay * i)
-      .duration(transitionTime)
       .attr('width', d => diamondSize * (d.percent / 100))
       .attr('height', d => diamondSize * (d.percent / 100));
 
     benchmark
       .data(data)
-      .transition()
-      .attr('x', d => bottomCornerX - diamondSize * (d.benchmark / 100))
-      .attr('y', d => bottomCornerY - diamondSize * (d.benchmark / 100))
-      .delay((d, i) => (data.length * transitionDelay * 2) + transitionDelay * i)
-      .duration(transitionTime)
+      .transition(t)
+      .delay((d, i) => diamondSize == 0 ? transitionDelay * i : (data.length * transitionDelay * 2) + transitionDelay * i)
       .attr('width', d => diamondSize * (d.benchmark / 100))
       .attr('height', d => diamondSize * (d.benchmark / 100));
 
 
     value_label
       .data(data)
-      .transition()
-      .delay((d, i) => transitionDelay * i)
-      .duration(transitionTime)
-      .attr('x', (d, i) => labelMapping[i].x)
-      .attr('y', (d, i) => labelMapping[i].y + 20)
+      .transition(t)
+      .delay((d, i) => diamondSize == 0 ? (data.length * transitionDelay * 2) + transitionDelay * i : transitionDelay * i)
+      .attr('x', (d, i) => (centerX) + labelMapping[i].x)
+      .attr('y', (d, i) => (centerY) + labelMapping[i].y + 20)
       .attr('fill', color)
       .attr('opacity', diamondSize == 0 ? 0 : 1)
       .text(d => `${d.percent}%`);
 
     state_label
       .data(data)
-      .transition()
-      .delay((d, i) => transitionDelay * i)
-      .duration(transitionTime)
-      .attr('x', (d, i) => labelMapping[i].x)
-      .attr('y', (d, i) => labelMapping[i].y)
+      .transition(t)
+      .delay((d, i) => diamondSize == 0 ? (data.length * transitionDelay * 2) + transitionDelay * i : transitionDelay * i)
+      .attr('x', (d, i) => (centerX) + labelMapping[i].x)
+      .attr('y', (d, i) => (centerY) + labelMapping[i].y)
       .attr('fill', color)
       .attr('opacity', diamondSize == 0 ? 0 : 1)
       .text(d => d.state);

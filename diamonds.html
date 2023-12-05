@@ -20,13 +20,10 @@ https://studio.datacult.com/ -->
 
 <body>
     <div id="diamonds"></div>
-    <div id="grid"></div>
 
 </body>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://d3js.org/d3-hexbin.v0.2.min.js"></script>
 <script src="js/diamonds.js"></script>
-<!-- <script src="js/grid.js"></script> -->
 
 </html>
 <script>
@@ -68,10 +65,12 @@ https://studio.datacult.com/ -->
             setTimeout(() => {
                 if (visuals.length == 0) {
                     visuals = val.map(d => diamonds(d, '#diamonds', data[key].color))
+                    visuals.forEach((d, i) => d.update(val[i], data[key].color))
                 } else {
-                    visuals.forEach((d,i) => d.update(val[i], data[key].color))
+                    visuals.forEach((d, i) => d.update(val[i], data[key].color))
                 }
-            }, 4000 * index)
+            }, index == 1 ? 5000 : 8000 * index)
+
 
             index++;
 
