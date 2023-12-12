@@ -1,0 +1,962 @@
+[
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "value",
+        "value": 26.6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Michigan",
+        "type": "value",
+        "value": 24.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "value",
+        "value": 22,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Pennsylvania",
+        "type": "value",
+        "value": 21.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Michigan",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Pennsylvania",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Michigan",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Highest Percent",
+        "state": "Pennsylvania",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "value",
+        "value": 10,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "value",
+        "value": 10.6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Florida / New Mexico",
+        "type": "value",
+        "value": 10.8,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Missouri / Texas",
+        "type": "value",
+        "value": 11.2,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Florida / New Mexico",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Missouri / Texas",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Florida / New Mexico",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Hispanic",
+        "range": "Lowest Percent",
+        "state": "Missouri / Texas",
+        "type": "total",
+        "value": 100,
+        "color": "#2E1E10"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "DC",
+        "type": "value",
+        "value": 44,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "value",
+        "value": 42.4,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "value",
+        "value": 40.1,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "value",
+        "value": 39.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "DC",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "DC",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "value",
+        "value": 15.9,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "value",
+        "value": 18.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "value",
+        "value": 19.2,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "value",
+        "value": 20.9,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "Low Income",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "total",
+        "value": 100,
+        "color": "#485925"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "value",
+        "value": 13.9,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "value",
+        "value": 13.8,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "value",
+        "value": 13.2,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Montana",
+        "type": "value",
+        "value": 12.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Montana",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Hawaii",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Highest Percent",
+        "state": "Montana",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "value",
+        "value": 4.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "value",
+        "value": 4.8,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "value",
+        "value": 5.6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "value",
+        "value": 5.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "White",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "total",
+        "value": 100,
+        "color": "#5A4A9A"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "value",
+        "value": 16.1,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "value",
+        "value": 15.6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Rhode Island",
+        "type": "value",
+        "value": 14.2,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Colorado",
+        "type": "value",
+        "value": 13.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Rhode Island",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Colorado",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Rhode Island",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Highest Percent",
+        "state": "Colorado",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "value",
+        "value": 5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "value",
+        "value": 5.4,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Texas",
+        "type": "value",
+        "value": 5.9,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Florida",
+        "type": "value",
+        "value": 6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Texas",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Florida",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "California",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Texas",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Asian/Pacific Islander",
+        "range": "Lowest Percent",
+        "state": "Florida",
+        "type": "total",
+        "value": 100,
+        "color": "#6C3F1F"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "value",
+        "value": 28.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Alaska",
+        "type": "value",
+        "value": 24.6,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "value",
+        "value": 20.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Nevada",
+        "type": "value",
+        "value": 19.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Alaska",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Nevada",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Wisconsin",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Alaska",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "New York",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Highest Percent",
+        "state": "Nevada",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "value",
+        "value": 6.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "value",
+        "value": 7.1,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "value",
+        "value": 7.5,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "value",
+        "value": 7.7,
+        "color": "#FF8A53"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "benchmark",
+        "value": 7,
+        "color": "#ffffff"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Tennessee",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Louisiana",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "Mississippi",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    },
+    {
+        "demographic": "Black",
+        "range": "Lowest Percent",
+        "state": "South Carolina",
+        "type": "total",
+        "value": 100,
+        "color": "#3C55AC"
+    }
+]

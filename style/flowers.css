@@ -7,7 +7,7 @@ body {
     background-color: #FFE4D7;
 }
 
-#diamonds {
+#flowers {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -16,14 +16,14 @@ body {
     /* Sets space between flex items */
 }
 
-.diamond-svg-container {
+.flowers-svg-container {
     width: 200px;
     /* Fixed width for each SVG container */
     margin: 5px;
     /* Optional: adds some space around the containers */
 }
 
-.diamond-svg {
+.flowers-svg {
     display: block;
     /* Removes extra space below the inline-level SVG element */
     width: 100%;

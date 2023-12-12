@@ -6,8 +6,8 @@
 
 let diamonds = ((data, selector = '#diamonds', color) => {
 
-  const transitionTime = 500;
-  const transitionDelay = transitionTime * 0.3;
+  let transitionTime = 500;
+  let transitionDelay = transitionTime * 0.3;
 
   const diamondsDiv = d3.select(selector);
 
@@ -18,11 +18,9 @@ let diamonds = ((data, selector = '#diamonds', color) => {
   // Initial diamond size
   let diamondSize = 0;
 
-  function calculateHypotenuse(a, b) {
-    return Math.sqrt(a * a + b * b);
+  const calcSideLength = (sideLength, percentage) => {
+    return Math.sqrt((percentage / 100) * (sideLength * sideLength));
   }
-
-  let hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
 
   const container = diamondsDiv.append('div')
     .classed('diamond-svg-container', true);
@@ -62,6 +60,7 @@ let diamonds = ((data, selector = '#diamonds', color) => {
     return retval;
   }
 
+
   // Append the outer diamond shape (which is a rotated square)
 
   let outer_rect = rounded_rect(0, 0, diamondSize, diamondSize, diamondSize * 0.1, false, false, false, true)
@@ -82,16 +81,16 @@ let diamonds = ((data, selector = '#diamonds', color) => {
     .append('rect')
     .attr('x', d => 0)
     .attr('y', d => 0)
-    .attr('width', d => diamondSize * (d.percent / 100))
-    .attr('height', d => -(diamondSize * (d.percent / 100)))
+    .attr('width', d => calcSideLength(diamondSize, d.percent))
+    .attr('height', d => calcSideLength(diamondSize, d.percent))
     .attr('fill', "#ffffff")
 
   let benchmark = groups
     .append('rect')
     .attr('x', d => 0)
     .attr('y', d => 0)
-    .attr('width', d => diamondSize * (d.benchmark / 100))
-    .attr('height', d => -(diamondSize * (d.benchmark / 100)))
+    .attr('width', d => calcSideLength(diamondSize, d.benchmark))
+    .attr('height', d => calcSideLength(diamondSize, d.benchmark))
     .attr('fill', "#FF8A53")
 
   // State
@@ -124,13 +123,61 @@ let diamonds = ((data, selector = '#diamonds', color) => {
     .text(d => d.state)
     .classed('state-label', true);
 
+  // geo
+
+  d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json').then((json) => {
+
+    console.log(json)
+
+    const topo = topojson.feature(json, json.objects.states)
+
+    console.log(topo)
+
+    const projection = d3.geoAlbersUsa()
+
+    const pathGenerator = d3.geoPath().projection(projection)
+
+    let stateMapping = [
+      { x: labelMapping[0].x, y: labelMapping[0].y - 40 },
+      { x: labelMapping[1].x, y: labelMapping[1].y - 40, },
+      { x: labelMapping[2].x, y: labelMapping[2].y + 140, },
+      { x: labelMapping[3].x, y: labelMapping[3].y - 40, }
+    ]
+
+    data.forEach((d, i) => {
+
+      let states = svg
+        .selectAll(`g.${d.demographic}-${d.share}-${i}-state`)
+        .data(topo.features.filter(x => x.properties.name === d.state))
+        .join('g')
+        .attr('class', `${d.demographic}-${d.share}-${i}-state`)
+        .attr('transform', (d) => {
+          const bounds = pathGenerator.bounds(d);
+          const dWidth = bounds[1][0] - bounds[0][0];
+          const dHeight = bounds[1][1] - bounds[0][1];
+          const scale = 100 / Math.max(dWidth, dHeight);
+          const dx = centerX - (bounds[0][0] * scale) - (dWidth / 2)
+          const dy = centerY - (bounds[0][1] * scale) - (dHeight / 2)
+          return `translate(${dx + stateMapping[i].x}, ${dy + stateMapping[i].y - 50}) scale(${scale})`;
+        })
+
+      states.append('path')
+        .attr('d', pathGenerator)
+        .attr('fill', 'white')
+        .attr('stroke', 'none');
+
+    });
+
+
+  });
+
   let xLine = svg
     .append('line')
     .attr('x1', (centerX) - 125)
     .attr('y1', (centerY) - 125)
     .attr('x2', (centerX) + 125)
     .attr('y2', (centerY) + 125)
-    .attr('stroke', '#EAEC7D')
+    .attr('stroke', '#FFE4D7')
     .attr('stroke-width', 3)
 
   let yLine = svg
@@ -139,7 +186,7 @@ let diamonds = ((data, selector = '#diamonds', color) => {
     .attr('y1', (centerY) + 125)
     .attr('x2', (centerX) + 125)
     .attr('y2', (centerY) - 125)
-    .attr('stroke', '#EAEC7D')
+    .attr('stroke', '#FFE4D7')
     .attr('stroke-width', 3)
 
 
@@ -149,12 +196,14 @@ let diamonds = ((data, selector = '#diamonds', color) => {
 
     if (open == true && diamondSize == 125) {
       diamondSize = 0;
-      console.log()
     } else {
       diamondSize = 125;
     }
 
-    hypotenuse = calculateHypotenuse(diamondSize, diamondSize);
+
+    transitionTime = diamondSize == 0 ? 250 : 500;
+
+    transitionDelay = transitionTime * 0.3;
 
     labelMapping = [
       { x: 0, y: - diamondSize - 120, anchor: 'middle' },
@@ -184,15 +233,15 @@ let diamonds = ((data, selector = '#diamonds', color) => {
       .data(data)
       .transition(t)
       .delay((d, i) => (data.length * transitionDelay) + transitionDelay * i)
-      .attr('width', d => diamondSize * (d.percent / 100))
-      .attr('height', d => diamondSize * (d.percent / 100));
+      .attr('width', d => calcSideLength(diamondSize, d.percent))
+      .attr('height', d => calcSideLength(diamondSize, d.percent));
 
     benchmark
       .data(data)
       .transition(t)
       .delay((d, i) => diamondSize == 0 ? transitionDelay * i : (data.length * transitionDelay * 2) + transitionDelay * i)
-      .attr('width', d => diamondSize * (d.benchmark / 100))
-      .attr('height', d => diamondSize * (d.benchmark / 100));
+      .attr('width', d => calcSideLength(diamondSize, d.benchmark))
+      .attr('height', d => calcSideLength(diamondSize, d.benchmark));
 
 
     value_label

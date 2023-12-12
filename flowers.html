@@ -1,0 +1,72 @@
+<!-- © 2023 Data Culture
+Released under the ISC license.
+https://studio.datacult.com/ -->
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/flowers.css">
+</head>
+
+<body>
+    <div id="flowers"></div>
+
+</body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/topojson.v3.min.js"></script>
+<script src="js/flowers.js"></script>
+
+</html>
+<script>
+    (async () => {
+        let data = await d3.json('/data/flowers-filtered.json')
+
+        let demographics = [...new Set(data.map(d => d.demographic))]
+
+        let ranges = [...new Set(data.map(d => d.range))]
+
+        let mapping = {
+            selector: '#flowers',
+            group: "state",
+            value: "value",
+            color: "color",
+            sort: "type",
+            order: ["total", "value", "benchmark"]
+        }
+
+        let visuals = []
+        let index = 0;
+
+        for (let demographic of demographics) {
+
+            setTimeout(() => {
+
+                for (let i in ranges) {
+                    let filtered = data.filter(d => d.demographic == demographic && d.range == ranges[i])
+
+                    if (visuals.length < 2) {
+                        visuals.push(flowers(filtered, mapping))
+                    } else {
+                        visuals[i].update(filtered)
+                    }
+                }
+            }, index == 1 ? 5000 : 8000 * index)
+
+            index++;
+
+        }
+
+
+    })()
+
+</script>
