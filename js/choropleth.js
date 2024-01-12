@@ -88,7 +88,7 @@ let choropleth = ((data, topo, map, options) => {
   ////////////// Scales //////////////////
   ////////////////////////////////////////
 
-  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(d3.schemeBlues[9]).nice();
+  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(d3.schemeReds[9]).nice();
 
   ////////////////////////////////////////
   ////////////// DOM Setup ///////////////
