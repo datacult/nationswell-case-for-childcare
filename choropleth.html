@@ -1,0 +1,107 @@
+<!-- © 2023 Data Culture
+Released under the ISC license.
+https://studio.datacult.com/ -->
+
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <!-- Google fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/flowers.css">
+</head>
+
+<body>
+    <div id="visuals"></div>
+
+</body>
+<!-- Include these! -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://d3js.org/topojson.v3.min.js"></script>
+<script src="js/legend.js"></script>
+<script src="js/choropleth.js"></script>
+
+</html>
+<script>
+    (async () => {
+
+        // use this version to load in the map from a CDN
+        // let us_map = await d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json")
+
+        // local map file
+        let us_map = await d3.json("./data/counties-10m.json")
+
+        // data for the colors
+        let data = await d3.csv("./data/childcare-map.csv", d3.autoType)
+
+        let mappings = [
+            {
+                id: 'State',
+                value: 'B. Am. Indian / Alaskan Family Cost to Income Ratio',
+                label: 'A. Am. Indian / Alaskan Family income'
+            },
+            {
+                id: 'State',
+                value: 'B. Black Family Cost to Income Ratio',
+                label: 'A. Black Family Income'
+            },
+            {
+                id: 'State',
+                value: 'B. White Family Cost to Income Ratio',
+                label: 'A. White family income'
+            }
+        ]
+
+        // change additional static options such as the title, stroke color, etc.
+        let options = {
+            selector: '#visuals',
+            stroke: "white",
+            title: 'Cost to Income Ratio'
+        }
+
+        // create an instance of the graph for each of the mappings (creating multiple graphs)
+        let visuals = mappings.map(mapping => choropleth(data, us_map, mapping, options))
+
+        ////////////////////////////////////////
+        /////////// Update Example /////////////
+        ////////////////////////////////////////
+
+        // this will unlikely be done on a timeout as is used in this example, but triggered on an observer or scroll trigger
+
+        let updateMappings = [
+            {
+                id: 'State',
+                value: 'C. Difference to Benchmark Am. Indian / Alaskan Family income',
+                label: 'A. Am. Indian / Alaskan Family income'
+            },
+            {
+                id: 'State',
+                value: 'C. Difference to Benchmark Black Family Income',
+                label: 'A. Black Family Income'
+            },
+            {
+                id: 'State',
+                value: 'C. Difference to Benchmark White family income',
+                label: 'A. White family income'
+            }
+        ]
+
+        options.title = 'Difference to Benchmark'
+
+        visuals.forEach((vis,i) => {
+            setTimeout(() => {
+                vis.update(data, updateMappings[i], options)
+            }, 3000)
+        })
+
+
+    })()
+
+</script>

@@ -11,7 +11,6 @@ let flowers = ((data, map, options) => {
   ////////////////////////////////////////
 
   let mapping = {
-    selector: '#flowers',
     group: "group",
     value: "value",
     color: "color",
@@ -22,17 +21,22 @@ let flowers = ((data, map, options) => {
   map = { ...mapping, ...map };
 
   let defaults = {
+    selector: '#flowers',
     width: 800,
     height: 800,
-    transition: 500,
+    margin: { top: 20, right: 20, bottom: 20, left: 20 },
+    transition: 400,
     delay: 100,
     edge_radius: 0.1,
     padding: 2,
     size: 0,
-    stroke: "#FFE4D7"
+    stroke: "#FFE4D7",
+    state: "flower"
   }
 
   options = { ...defaults, ...options };
+
+  let activeTransition = false;
 
   ////////////////////////////////////////
   //////////// Data Sorting //////////////
@@ -59,7 +63,7 @@ let flowers = ((data, map, options) => {
   ////////////// SVG Setup ///////////////
   ////////////////////////////////////////
 
-  const diamondsDiv = d3.select(map.selector);
+  const diamondsDiv = d3.select(options.selector);
 
   const container = diamondsDiv.append('div')
     .classed('diamond-svg-container', true);
@@ -68,7 +72,9 @@ let flowers = ((data, map, options) => {
     .attr('width', '100%') // Responsive width
     .attr('height', '100%') // Responsive height
     .attr('viewBox', `0 0 ${options.width} ${options.height}`)
-    .classed('diamond-svg', true);
+    .classed('diamond-svg', true)
+    .append('g')
+    .attr('transform', `translate(${options.margin.left},${options.margin.top})`);
 
   ////////////////////////////////////////
   ////////////// Helpers /////////////////
@@ -76,6 +82,14 @@ let flowers = ((data, map, options) => {
 
   const centerX = options.width / 2;
   const centerY = options.height / 2;
+  const height = options.height - options.margin.top - options.margin.bottom;
+  const width = options.width - options.margin.left - options.margin.right;
+
+  const barChartWidth = 125 * 2.5;
+
+  ////////////////////////////////////////
+  ////////////// Scales //////////////////
+  ////////////////////////////////////////
 
   const calcSideLength = (sideLength, percentage) => {
     return Math.sqrt((percentage / 100) * (sideLength * sideLength));
@@ -87,6 +101,15 @@ let flowers = ((data, map, options) => {
     var y = yCenter + radius * Math.sin(radians);
     return { x, y };
   }
+
+  let xScale = d3.scaleBand()
+    .domain(groups)
+    .range([0, barChartWidth])
+    .paddingInner(options.padding / 50)
+
+  const yScale = d3.scaleLinear()
+    .domain([0, 100])
+    .range([0, barChartWidth])
 
 
   ////////////////////////////////////////
@@ -107,14 +130,24 @@ let flowers = ((data, map, options) => {
     .attr('transform', (d, i) => `translate(${(centerX)},${(centerY)}) rotate(${45 + ((360 / groups.length) * (i + 2))})`)
     .attr('fill', d => d[map.color])
     .attr('stroke', options.stroke)
-    .classed('petal', true);
+    .classed('petal', true)
+    .on('mouseover', (d, i) => {
+      if (activeTransition == false) {
+        update(data, "bar", true)
+      }
+    })
+    .on('mouseout', (d, i) => {
+      if (activeTransition == false) {
+        update(data, "flower", true)
+      }
+    })
 
   let flower_label = svg
     .selectAll('flower-label')
     .data(groups)
     .join('text')
-    .attr('x', (d, i) => calculateCoordinates(centerX, centerY, options.size * 2, (45 + (360 / groups.length) * (i + 2))).x)
-    .attr('y', (d, i) => calculateCoordinates(centerX, centerY, options.size * 2, (45 + (360 / groups.length) * (i + 2))).y)
+    .attr('x', (d, i) => calculateCoordinates(centerX, centerY, 125 * 2, ((360 / groups.length) * (i + 2))).x)
+    .attr('y', (d, i) => calculateCoordinates(centerX, centerY, 125 * 2, ((360 / groups.length) * (i + 2))).y)
     .attr('text-anchor', 'middle')
     .attr('font-weight', 'bold')
     .attr('dominant-baseline', 'central')
@@ -122,17 +155,22 @@ let flowers = ((data, map, options) => {
     .attr('opacity', 0)
     .text(d => d)
     .classed('flower-label', true);
-    
+
 
   ////////////////////////////////////////
   ////////////// Update //////////////////
   ////////////////////////////////////////
 
-  function update(data) {
+  function update(updateData = data, state = options.state, changeState = false) {
 
-    groups = Array.from(new Set(data.map(d => d[map.group])));
+    data = updateData;
+    options.state = state;
 
-    data = data.sort((a, b) => {
+    groups = Array.from(new Set(updateData.map(d => d[map.group])));
+
+    xScale.domain(groups)
+
+    updateData = updateData.sort((a, b) => {
       let indexA = map.order.indexOf(a[map.sort]);
       let indexB = map.order.indexOf(b[map.sort]);
 
@@ -145,37 +183,83 @@ let flowers = ((data, map, options) => {
       return 0;
     });
 
-    if (options.size == 125) {
-      options.size = 0;
-    } else {
-      options.size = 125;
+    if (changeState == false) {
+      if (options.size == 125) {
+        options.size = 0;
+      } else {
+        options.size = 125;
+      }
     }
 
     const t = d3.transition().duration(options.transition)
 
-    flower_shapes
-      .data(data)
-      .transition(t)
-      .delay((d, i) => (data.length * options.delay) + options.delay * i)
-      .attr('width', d => calcSideLength(options.size, d[map.value]))
-      .attr('height', d => calcSideLength(options.size, d[map.value]))
-      .attr('rx', d => calcSideLength(options.size, d[map.value]) * options.edge_radius)
-      .attr('ry', d => calcSideLength(options.size, d[map.value]) * options.edge_radius)
-      .attr('fill', d => d[map.color])
-      .on("end", (d, i) => {
-        if (i == data.length - 1 && options.size == 0) {
-          return update(data)
-        }
-      });
+    if (changeState == true) {
+      activeTransition = true;
+    }
 
-    flower_label
-      .data(groups)
-      .transition(t)
-      .delay((d, i) => options.size == 0 ? (data.length * options.delay * 2) + options.delay * i : options.delay * i)
-      .attr('x', (d, i) => calculateCoordinates(centerX, centerY, options.size * 2, ((360 / groups.length) * (i + 2))).x)
-      .attr('y', (d, i) => calculateCoordinates(centerX, centerY, options.size * 2, ((360 / groups.length) * (i + 2))).y)
-      .attr('opacity', options.size == 0 ? 0 : 1)
-      .text(d => d)
+    if (state == "bar") {
+
+      flower_shapes
+        .data(updateData)
+        .transition(t)
+        .delay((d, i) => options.delay * groups.indexOf(d[map.group]))
+        .attr('width', xScale.bandwidth())
+        .attr('height', d => yScale(d[map.value]))
+        .attr('x', d => centerX - (barChartWidth / 2) + xScale(d[map.group]))
+        .attr('y', d => centerY + (barChartWidth / 2) - yScale(d[map.value]))
+        .attr('transform', `translate(0,0) rotate(0)`)
+        .attr('fill', d => d[map.color])
+        .on("end", (d, i) => {
+          if (i == updateData.length - 1) {
+            activeTransition = false;
+            if (options.size == 0) {
+              return update()
+            }
+          }
+        });
+
+      flower_label
+        .data(groups)
+        .transition(t)
+        .delay((d, i) => 0) //options.size == 0 ? (data.length * options.delay * 2) + options.delay * i : 
+        .attr('x', (d, i) => centerX - (barChartWidth / 2) + xScale(d) + xScale.bandwidth() / 2)
+        .attr('y', (d, i) => centerY + (barChartWidth / 2) + 10)
+        .attr('opacity', options.size == 0 ? 0 : 1)
+        .text(d => d)
+
+    } else {
+
+      flower_shapes
+        .data(updateData)
+        .transition(t)
+        .delay((d, i) => changeState == true ? options.delay * groups.indexOf(d[map.group]) : options.delay * i)
+        .attr('x', options.padding)
+        .attr('y', options.padding)
+        .attr('width', d => calcSideLength(options.size, d[map.value]))
+        .attr('height', d => calcSideLength(options.size, d[map.value]))
+        .attr('rx', d => calcSideLength(options.size, d[map.value]) * options.edge_radius)
+        .attr('ry', d => calcSideLength(options.size, d[map.value]) * options.edge_radius)
+        .attr('transform', (d, i) => `translate(${(centerX)},${(centerY)}) rotate(${45 + ((360 / groups.length) * (i + 2))})`)
+        .attr('fill', d => d[map.color])
+        .on("end", (d, i) => {
+          if (i == updateData.length - 1) {
+            activeTransition = false;
+            if (options.size == 0) {
+              return update()
+            }
+          }
+        });
+
+      flower_label
+        .data(groups)
+        .transition(t)
+        .delay((d, i) => 0) //options.size == 0 ? (data.length * options.delay * 2) + options.delay * i : 
+        .attr('x', (d, i) => calculateCoordinates(centerX, centerY, 125 * 2, ((360 / groups.length) * (i + 2))).x)
+        .attr('y', (d, i) => calculateCoordinates(centerX, centerY, 125 * 2, ((360 / groups.length) * (i + 2))).y)
+        .attr('opacity', options.size == 0 ? 0 : 1)
+        .text(d => d)
+
+    }
 
   }
 

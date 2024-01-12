@@ -36,12 +36,15 @@ https://studio.datacult.com/ -->
         let ranges = [...new Set(data.map(d => d.range))]
 
         let mapping = {
-            selector: '#flowers',
             group: "state",
             value: "value",
             color: "color",
             sort: "type",
             order: ["total", "value", "benchmark"]
+        }
+
+        let options = {
+            selector: '#flowers',
         }
 
         let visuals = []
@@ -55,12 +58,12 @@ https://studio.datacult.com/ -->
                     let filtered = data.filter(d => d.demographic == demographic && d.range == ranges[i])
 
                     if (visuals.length < 2) {
-                        visuals.push(flowers(filtered, mapping))
+                        visuals.push(flowers(filtered, mapping, options))
                     } else {
                         visuals[i].update(filtered)
                     }
                 }
-            }, index == 1 ? 5000 : 8000 * index)
+            }, index == 1 ? 5000 : 7000 * index)
 
             index++;
 
