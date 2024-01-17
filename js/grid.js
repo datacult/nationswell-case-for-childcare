@@ -102,7 +102,7 @@ let grid = ((selector = '#grid') => {
 
     let img = svg
         .append("image")
-        .attr("xlink:href", "/assets/eddys-parents.svg")
+        .attr("xlink:href", "https://datacult.github.io/nationswell-case-for-childcare/assets/eddys-parents.svg")
         .attr("x", square.x)
         .attr("y", square.y)
         .attr("width", square.width)
