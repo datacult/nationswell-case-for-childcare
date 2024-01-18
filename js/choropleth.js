@@ -31,9 +31,10 @@ let choropleth = ((data, topo, map, options) => {
     fill: "none",
     focus: "",
     domain: null,
-    format: d3.format(",d"),
+    format: d3.format(".1%"),
     title: "",
-    legend: true
+    legend: true,
+    colorScale: d3.schemeReds[9]
   }
 
   options = { ...defaults, ...options };
@@ -88,7 +89,7 @@ let choropleth = ((data, topo, map, options) => {
   ////////////// Scales //////////////////
   ////////////////////////////////////////
 
-  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(d3.schemeReds[9]).nice();
+  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(options.colorScale).nice();
 
   ////////////////////////////////////////
   ////////////// DOM Setup ///////////////
@@ -132,14 +133,15 @@ let choropleth = ((data, topo, map, options) => {
   function addLegend(){
 
     let legend = Legend(colorScale, {
-      title: options.title,
-      width: options.width / 2,
+      title: `${map.label}\n${options.title}`,
+      width: options.width / 1.5,
       tickSize: 0,
       tickFormat: options.format,
     })
 
     svg.append('g')
-      .attr("transform", `translate(${(options.width / 2) - 50},${100})`)
+      // .attr("transform", `translate(${(options.width / 2) - 50},${100})`)
+      .attr("transform", `translate(${0},${80})`)
       .append(() => legend)
       .classed('legend', true);
 
