@@ -6,7 +6,7 @@
 
 let choropleth = ((data, topo, map, options) => {
 
-  console.log(data, topo)
+  //console.log(data, topo)
 
   ////////////////////////////////////////
   /////////////// Defaults ///////////////
@@ -102,7 +102,7 @@ let choropleth = ((data, topo, map, options) => {
   const namemap = new Map(topo.objects.states.geometries.map(d => [d.properties.name, d.id]))
   let valuemap = new Map(data.map(d => [d[map.id], +d[map.value]]));
   let labelsmap = new Map(data.map(d => [d[map.id], d[map.label]]));
-  console.log(valuemap, labelsmap)
+  //console.log(valuemap, labelsmap)
 
 
   const path = d3.geoPath();
@@ -157,7 +157,7 @@ let choropleth = ((data, topo, map, options) => {
 
   function update(newData = data, newMap = map, newOptions = options) {
 
-    console.log("update")
+    //console.log("update")
 
     data = newData;
     map = { ...map, ...newMap };
