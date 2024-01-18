@@ -88,7 +88,8 @@ let choropleth = ((data, topo, map, options) => {
   const innerContainer = outerContainer.append('div')
     .classed('svg-container', true);
 
-  innerContainer.html(`<span class="chart-title">${map.label}\n${options.title}</span>`);
+  innerContainer.append("span").attr("class", "chart-title").text(`${map.label}\n${options.title}`);
+
 
   const svg = innerContainer.append('svg')
     .attr('width', '100%') // Responsive width
@@ -199,6 +200,9 @@ let choropleth = ((data, topo, map, options) => {
       });
     }
 
+
+    
+
     const t = d3.transition().duration(options.transition);
 
     valuemap = new Map(data.map(d => [d[map.id], +d[map.value]]));
@@ -210,6 +214,7 @@ let choropleth = ((data, topo, map, options) => {
       .transition(t)
       .attr("fill", d => colorScale(valuemap.get(d.properties.name)))
 
+      innerContainer.select(".chart-title").text(`${map.label}\n${options.title}`)
     if (options.legend == true) {
       svg.select('.legend').remove()
       addLegend()

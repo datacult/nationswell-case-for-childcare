@@ -45,17 +45,17 @@ https://studio.datacult.com/ -->
             {
                 id: 'State',
                 value: 'B. Am. Indian / Alaskan Family Cost to Income Ratio',
-                label: 'A. Am. Indian / Alaskan Family income'
+                label: 'A. Am. Indian / Alaskan Family'
             },
             {
                 id: 'State',
                 value: 'B. Black Family Cost to Income Ratio',
-                label: 'A. Black Family Income'
+                label: 'A. Black Family'
             },
             {
                 id: 'State',
                 value: 'B. White Family Cost to Income Ratio',
-                label: 'A. White family income'
+                label: 'A. White family'
             }
         ]
 
@@ -80,22 +80,24 @@ https://studio.datacult.com/ -->
         let updateMappings = [
             {
                 id: 'State',
-                value: 'C. Difference to Benchmark Am. Indian / Alaskan Family income',
-                label: 'A. Am. Indian / Alaskan Family income'
+                value: 'D. Multiples to Benchmark Am. Indian / Alaskan Family income',
+                label: 'A. Am. Indian / Alaskan Family'
             },
             {
                 id: 'State',
-                value: 'C. Difference to Benchmark Black Family Income',
-                label: 'A. Black Family Income'
+                value: 'D. Multiples to Benchmark Black Family Income',
+                label: 'A. Black Family'
             },
             {
                 id: 'State',
-                value: 'C. Difference to Benchmark White family income',
-                label: 'A. White family income'
+                value: 'D. Multiples to Benchmark White Family',
+                label: 'A. White Family'
             }
         ]
 
         options.title = 'Difference to Benchmark'
+        options.domain = [0,9]
+        options.format = d3.format(".2")
 
         visuals.forEach((vis,i) => {
             setTimeout(() => {
