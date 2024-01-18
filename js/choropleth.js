@@ -81,13 +81,18 @@ let choropleth = ((data, topo, map, options) => {
   ////////////////////////////////////////
 
   const outerContainer = d3.select(options.selector);
+  
+  
+ 
 
   const innerContainer = outerContainer.append('div')
     .classed('svg-container', true);
 
+  innerContainer.html(`<span class="chart-title">${map.label}\n${options.title}</span>`);
+
   const svg = innerContainer.append('svg')
     .attr('width', '100%') // Responsive width
-    .attr('height', '100%') // Responsive height
+    .attr('height', '85%') // Responsive height
     .attr('viewBox', `0 0 ${options.width} ${options.height}`)
     .append('g')
     .attr('transform', `translate(${options.margin.left},${options.margin.top})`);
@@ -149,7 +154,7 @@ let choropleth = ((data, topo, map, options) => {
   function addLegend(){
 
     let legend = Legend(colorScale, {
-      title: `${map.label}\n${options.title}`,
+      title: '',
       width: options.width / 1,
       tickSize: 0,
       tickFormat: options.format,
