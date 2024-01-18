@@ -50,7 +50,7 @@ let choropleth = ((data, topo, map, options) => {
     format: d3.format(".1%"),
     title: "",
     legend: true,
-    colorScale: d3.schemeReds[7]
+    colorScale: ["#FFDCCD","#C60E02"]
   }
 
   options = { ...defaults, ...options };
