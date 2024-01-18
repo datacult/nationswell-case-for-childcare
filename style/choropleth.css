@@ -1,0 +1,23 @@
+/* © 2023 Data Culture
+Released under the ISC license.
+https://studio.datacult.com/  */
+
+body {
+    font-family: Helvetica, Arial, Sans-Serif;
+    background-color: #FFE4D7;
+}
+
+#visuals {
+    display: flex;
+
+}
+
+#visuals .svg-container {
+    width: 100%;
+    flex-grow: 1;
+}
+.title {font-size: 20px;}
+
+g.tick text {
+    font-size: 20px;
+}

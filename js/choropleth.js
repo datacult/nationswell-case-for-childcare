@@ -4,7 +4,23 @@
 
 'use strict'
 
+
 let choropleth = ((data, topo, map, options) => {
+  function generateDiscreteColors(colorsArray, n=9) {
+    // Extract start and end colors from the array
+    const [startColor, endColor] = colorsArray;
+  
+    // Create a color scale using d3.scaleSequential
+    const colorScale = d3.scaleSequential(d3.interpolateHcl(startColor, endColor))
+      .domain([0, n - 1]);
+  
+    // Generate an array of discrete color values
+    const discreteColors = d3.range(n).map(colorScale);
+  
+    // Return the array of discrete color values
+    return discreteColors;
+  }
+  
 
   //console.log(data, topo)
 
@@ -34,7 +50,7 @@ let choropleth = ((data, topo, map, options) => {
     format: d3.format(".1%"),
     title: "",
     legend: true,
-    colorScale: d3.schemeReds[9]
+    colorScale: d3.schemeReds[7]
   }
 
   options = { ...defaults, ...options };
@@ -89,7 +105,7 @@ let choropleth = ((data, topo, map, options) => {
   ////////////// Scales //////////////////
   ////////////////////////////////////////
 
-  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(options.colorScale).nice();
+  const colorScale = d3.scaleQuantize().domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(generateDiscreteColors(options.colorScale, 7)).nice();
 
   ////////////////////////////////////////
   ////////////// DOM Setup ///////////////
@@ -183,7 +199,7 @@ let choropleth = ((data, topo, map, options) => {
     valuemap = new Map(data.map(d => [d[map.id], +d[map.value]]));
     labelsmap = new Map(data.map(d => [d[map.id], d[map.label]]));
 
-    colorScale.domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(options.colorScale).nice()
+    colorScale.domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(generateDiscreteColors(options.colorScale)).nice()
 
     statesPath
       .transition(t)

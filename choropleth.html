@@ -15,7 +15,7 @@ https://studio.datacult.com/ -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/flowers.css">
+    <link rel="stylesheet" href="style/choropleth.css">
 </head>
 
 <body>
@@ -63,7 +63,10 @@ https://studio.datacult.com/ -->
         let options = {
             selector: '#visuals',
             stroke: "white",
-            title: 'Cost to Income Ratio'
+            title: 'Cost to Income Ratio',
+            domain: [0,.7],
+            colorScale: ["pink", "black"]
+
         }
 
         // create an instance of the graph for each of the mappings (creating multiple graphs)
@@ -94,7 +97,6 @@ https://studio.datacult.com/ -->
         ]
 
         options.title = 'Difference to Benchmark'
-        options.colorScale = d3.schemeRdPu[9]
 
         visuals.forEach((vis,i) => {
             setTimeout(() => {
