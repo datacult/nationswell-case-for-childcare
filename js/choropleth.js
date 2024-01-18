@@ -134,7 +134,7 @@ let choropleth = ((data, topo, map, options) => {
 
     let legend = Legend(colorScale, {
       title: `${map.label}\n${options.title}`,
-      width: options.width / 1.5,
+      width: options.width / 1,
       tickSize: 0,
       tickFormat: options.format,
     })
