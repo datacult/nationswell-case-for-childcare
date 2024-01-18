@@ -183,7 +183,7 @@ let choropleth = ((data, topo, map, options) => {
     valuemap = new Map(data.map(d => [d[map.id], +d[map.value]]));
     labelsmap = new Map(data.map(d => [d[map.id], d[map.label]]));
 
-    colorScale.domain(options.domain ? options.domain : d3.extent(data, d => d[map.value]))
+    colorScale.domain(options.domain ? options.domain : d3.extent(data, d => d[map.value])).range(options.colorScale).nice()
 
     statesPath
       .transition(t)
